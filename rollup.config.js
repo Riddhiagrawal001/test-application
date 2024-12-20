@@ -5,7 +5,7 @@ import postcss from 'rollup-plugin-postcss';  // Handle CSS imports (if needed)
 import { terser } from 'rollup-plugin-terser';  // Minify the output for production
 
 export default {
-    input: 'src/App.js', // Entry point of the library (App.js)
+    input: 'src/index.js', // Entry point of the library (App.js)
     output: [
         {
             file: 'dist/my-react-app.js', // Output file (UMD format)
