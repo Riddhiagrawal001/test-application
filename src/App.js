@@ -15,11 +15,9 @@ function App() {
   return (
     <BrowserRouter><div>Hello World</div>
       <Routes>
-        <Route path="" element={<MainPage />} />
+        <Route path="*" element={<MainPage />} />
         <Route path="/dashboard/test-application/about" element={<SecondPage />} />
       </Routes>
-
-
     </BrowserRouter >);
 };
 
