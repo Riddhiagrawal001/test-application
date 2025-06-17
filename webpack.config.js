@@ -5,7 +5,7 @@ module.exports = {
     entry: './src/App.js', // Entry file
     output: {
         path: path.resolve(__dirname, 'dist'), // Output folder
-        filename: 'my-react-library.js', // Output file
+        filename: 'index.js', // Output file
         library: 'MyReactLibrary', // Global variable name for UMD (Universal Module Definition)
         libraryTarget: 'umd', // Support for multiple module formats
         umdNamedDefine: true, // Enable UMD define naming
