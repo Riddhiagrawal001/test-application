@@ -4,19 +4,21 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SecondPage from "./components/SecondPage"; // Import BrowserRouter for routing
 
 function MainPage() {
-  return <div>Dashboard
+  return (<div>Dashboard
     <button onClick={() => {
       window.location.href = '/dashboard/test-application/about';
     }}>Go to About</button>
-  </div>;
+  </div>);
 }
 
 function App() {
   return (
-    <BrowserRouter><div>Hello World</div>
+    <BrowserRouter>
+      <div>Hello World</div>
       <Routes>
-        <Route path="*" element={<MainPage />} />
         <Route path="/dashboard/test-application/about" element={<SecondPage />} />
+        <Route path="*" element={<MainPage />} />
+
       </Routes>
     </BrowserRouter >);
 };
