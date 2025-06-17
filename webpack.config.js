@@ -11,6 +11,10 @@ module.exports = {
         umdNamedDefine: true, // Enable UMD define naming
         globalObject: 'this', // For proper handling in the browser environment
     },
+    externals: {
+        react: 'react',
+        'react-dom': 'react-dom'
+    },
     module: {
         rules: [
             {
