@@ -1,14 +1,14 @@
 import React from 'react';  // Import React (needed for JSX)
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import SecondPage from "./components/SecondPage"; // Import BrowserRouter for routing
 
 function MainPage() {
+  const navigate = useNavigate();
+
   return (<div>Dashboard
-    <button onClick={() => {
-      window.location.href = '/dashboard/test-application/about';
-    }}>Go to About</button>
-  </div>);
+    <button onClick={() => navigate('/dashboard/test-application/about')}>Go to About</button>
+  </div >);
 }
 
 function App() {
