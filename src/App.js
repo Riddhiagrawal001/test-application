@@ -57,7 +57,7 @@ function MainPage() {
       return <div className="text-gray-500">Loading...</div>;
     } else if (state === "Successful" && profileList.length > 0) {
       return profileList.map((profile, index) => (
-        <h3 key={index} className="text-lg font-semibold">{profile.profile_name.length === 0 ? profile.profile_name : profile.profile_id}</h3>
+        <h3 key={index} className="text-lg font-semibold">{profile.profile_name.length > 0 ? profile.profile_name : profile.profile_id}</h3>
       ));
     } else if (state === "Successful" && profileList.length === 0) {
       return <div className="text-gray-500">No profiles found</div>;
@@ -68,8 +68,8 @@ function MainPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div>Dashboard</div>
-      <button className="border border-blue-400 px-4 py-2 rounded-md bg-blue-200" onClick={() => handleApiCall()}>Create a new merchant</button>
+      <div>Main Page</div>
+      <button className="border border-blue-400 px-4 py-2 rounded-md bg-blue-200" onClick={() => handleApiCall()}>Fetch profile list</button>
       <button className="border border-blue-400 px-4 py-2 rounded-md bg-blue-200" onClick={() => navigate('/dashboard/test-application/about')}>Go to About</button>
       <div className='flex flex-col gap-4'>
         {renderProfiles()}
@@ -82,7 +82,7 @@ function App() {
   return (
     <div className="flex flex-col justify-center items-center gap-4">
       <BrowserRouter>
-        <p className="text-2xl bold">Hello World</p>
+        <p className="text-2xl bold">Test application dashboard</p>
         <Routes>
           <Route path="/dashboard/test-application/about" element={<SecondPage />} />
           <Route path="*" element={<MainPage />} />
