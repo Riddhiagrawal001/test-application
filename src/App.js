@@ -9,6 +9,8 @@ import 'tailwindcss/tailwind.css'; // Import Tailwind CSS styles
 function MainPage() {
   const navigate = useNavigate();
 
+  const [profileList, setProfileList] = React.useState([]);
+
 
   const getTokenFromLocalStorage = (key, defaultValue) => {
     try {
@@ -25,13 +27,10 @@ function MainPage() {
       // Get data from localStorage
       let userinfo = getTokenFromLocalStorage('USER_INFO', null);
       let token = userinfo ? userinfo.token : "";
-      let body = {
-        "product_type": "orchestration",
-        "company_name": "testcompanyname"
-      }
+
 
       // Make Axios POST call with try-catch
-      const response = await axios.post('http://localhost:9000/api/user/create_merchant', body, {
+      const response = await axios.get('http://localhost:9000/api/user/list/profile', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}` // Use the token from localStorage
@@ -40,6 +39,7 @@ function MainPage() {
 
       // Handle success
       console.log('API call successful:', response.data);
+      setProfileList(response.data);
 
     } catch (error) {
       console.error('Error:', error.message);
@@ -52,6 +52,15 @@ function MainPage() {
       <div>Dashboard</div>
       <button className="border border-blue-400 px-4 py-2 rounded-md bg-blue-200" onClick={() => handleApiCall()}>Create a new merchant</button>
       <button className="border border-blue-400 px-4 py-2 rounded-md bg-blue-200" onClick={() => navigate('/dashboard/test-application/about')}>Go to About</button>
+      {profileList.length > 0 ?
+        profileList.map((profile, index) => (
+          <div key={index} className="border border-gray-300 p-4 rounded-md">
+            <h3 className="text-lg font-semibold">{profile.name}</h3>
+          </div>
+        )) :
+        <div className="text-gray-500">No profiles found</div>
+      }
+
     </div>
   );
 }
