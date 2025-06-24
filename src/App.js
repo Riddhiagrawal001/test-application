@@ -3,6 +3,8 @@ import './App.css';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import SecondPage from "./components/SecondPage"; // Import BrowserRouter for routing
 import axios from 'axios';
+import 'tailwindcss/tailwind.css'; // Import Tailwind CSS styles
+
 
 function MainPage() {
   const navigate = useNavigate();
@@ -45,22 +47,26 @@ function MainPage() {
     }
   };
 
-  return (<div>Dashboard
-    <button onClick={() => handleApiCall()}>Create a new merchant</button>
-    <button onClick={() => navigate('/dashboard/test-application/about')}>Go to About</button>
-  </div >);
+  return (
+    <div className="flex flex-col gap-6">
+      <div>Dashboard</div>
+      <button className="border border-blue-400 px-4 py-2 rounded-md bg-blue-200" onClick={() => handleApiCall()}>Create a new merchant</button>
+      <button className="border border-blue-400 px-4 py-2 rounded-md bg-blue-200" onClick={() => navigate('/dashboard/test-application/about')}>Go to About</button>
+    </div>
+  );
 }
 
 function App() {
   return (
-    <BrowserRouter>
-      <div>Hello World</div>
-      <Routes>
-        <Route path="/dashboard/test-application/about" element={<SecondPage />} />
-        <Route path="*" element={<MainPage />} />
-
-      </Routes>
-    </BrowserRouter >);
+    <div className="flex flex-col justify-center items-center gap-4">
+      <BrowserRouter>
+        <p className="text-2xl bold">Hello World</p>
+        <Routes>
+          <Route path="/dashboard/test-application/about" element={<SecondPage />} />
+          <Route path="*" element={<MainPage />} />
+        </Routes>
+      </BrowserRouter >
+    </div>);
 };
 
 export default App;

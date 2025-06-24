@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const tailwindcss = require("tailwindcss");
 
 module.exports = {
     entry: './src/App.js', // Entry file
@@ -27,19 +29,24 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                include: [
-                    path.resolve(__dirname, 'node_modules/MyReactLibrary')
-                ],
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env', '@babel/preset-react']
-                    }
-                }
+                loader: 'babel-loader',
+
             },
+
             {
-                test: /\.css$/, // Handle CSS files
-                use: ['style-loader', 'css-loader'],
+                test: /\.css$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcssOptions: {
+                                plugins: [[tailwindcss("./tailwind.config.js")]],
+                            },
+                        },
+                    },
+                ],
             },
         ],
     },
@@ -50,6 +57,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './public/index.html', // Use your existing HTML template
         }),
+        new MiniCssExtractPlugin(),
     ],
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
