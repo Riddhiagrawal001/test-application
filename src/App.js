@@ -29,7 +29,7 @@ function MainPage() {
       }
 
       // Make Axios POST call with try-catch
-      const response = await axios.post('http://localhost:8080', body, {
+      const response = await axios.post('http://localhost:8080/user/create_merchant', body, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}` // Use the token from localStorage
