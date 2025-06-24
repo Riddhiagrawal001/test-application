@@ -25,7 +25,7 @@ function MainPage() {
       let token = userinfo ? userinfo.token : "";
       let body = {
         "product_type": "orchestration",
-        "company_name": "test-company-name"
+        "company_name": "testcompanyname"
       }
 
       // Make Axios POST call with try-catch
