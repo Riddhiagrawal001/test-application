@@ -6,10 +6,13 @@ import axios from 'axios';
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS styles
 
 
+
 function MainPage() {
+
   const navigate = useNavigate();
 
   const [profileList, setProfileList] = React.useState([]);
+  const [state, setState] = React.useState("Successful");
 
 
   const getTokenFromLocalStorage = (key, defaultValue) => {
@@ -24,6 +27,7 @@ function MainPage() {
 
   const handleApiCall = async () => {
     try {
+      setState("Loading"); // Set state to Loading before making the API call
       // Get data from localStorage
       let userinfo = getTokenFromLocalStorage('USER_INFO', null);
       let token = userinfo ? userinfo.token : "";
@@ -40,10 +44,25 @@ function MainPage() {
       // Handle success
       console.log('API call successful:', response.data);
       setProfileList(response.data);
-
+      setState("Successful");
     } catch (error) {
       console.error('Error:', error.message);
+      setState("Failed");
       // Handle different types of errors
+    }
+  };
+
+  const renderProfiles = () => {
+    if (state === "Loading") {
+      return <div className="text-gray-500">Loading...</div>;
+    } else if (state === "Successful" && profileList.length > 0) {
+      return profileList.map((profile, index) => (
+        <h3 key={index} className="text-lg font-semibold">{profile.profile_name.length === 0 ? profile.profile_name : profile.profile_id}</h3>
+      ));
+    } else if (state === "Successful" && profileList.length === 0) {
+      return <div className="text-gray-500">No profiles found</div>;
+    } else {
+      return <div className="text-gray-500">Something went wrong</div>;
     }
   };
 
@@ -52,15 +71,9 @@ function MainPage() {
       <div>Dashboard</div>
       <button className="border border-blue-400 px-4 py-2 rounded-md bg-blue-200" onClick={() => handleApiCall()}>Create a new merchant</button>
       <button className="border border-blue-400 px-4 py-2 rounded-md bg-blue-200" onClick={() => navigate('/dashboard/test-application/about')}>Go to About</button>
-      {profileList.length > 0 ?
-        profileList.map((profile, index) => (
-          <div key={index} className="border border-gray-300 p-4 rounded-md">
-            <h3 className="text-lg font-semibold">{profile.name}</h3>
-          </div>
-        )) :
-        <div className="text-gray-500">No profiles found</div>
-      }
-
+      <div className='flex flex-col gap-4'>
+        {renderProfiles()}
+      </div>
     </div>
   );
 }
